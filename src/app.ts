@@ -1,9 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 
-import router from './routes';
-import todosRouter from './routes/todos';
-
 const app = express();
 
 app.use(
@@ -15,7 +12,8 @@ app.use(
   express.json(),
 );
 
-app.use('/', router);
-app.use('/todos', todosRouter);
+app.use('/', require('./routes/index').default);
+app.use('/todos', require('./routes/todos').default);
+app.use('/auth', require('./routes/auth').default);
 
 export default app;
