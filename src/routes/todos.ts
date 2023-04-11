@@ -5,13 +5,25 @@ import { checkRequiredBodyProperties } from '../middlewares/checkRequiredPropert
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const todos = await Todo.all();
+  let todos = await Todo.all();
+
+  if (req.query.filter === 'completed') {
+    todos.filter((todo) => todo.completed);
+  } else if (req.query.filter === 'incompleted') {
+    todos = todos.filter((todo) => !todo.completed);
+  }
 
   res.json(todos);
 });
 
-router.get('/:id', async (req, res) => {
-  const todo = await Todo.find(Number(req.params.id));
+router.post('/', checkRequiredBodyProperties(['title']), async (req, res) => {
+  const todo = await Todo.create(req.body.title);
+
+  res.status(201).json(todo);
+});
+
+router.put('/:id/markTodoCompleted', async (req, res) => {
+  const todo = await Todo.update(Number(req.params.id), { completed: true });
 
   if (!todo) {
     sendNotFound(res);
@@ -21,14 +33,8 @@ router.get('/:id', async (req, res) => {
   res.json(todo);
 });
 
-router.post('/', checkRequiredBodyProperties(['title']), async (req, res) => {
-  const todo = await Todo.create(req.body.title);
-
-  res.status(201).json(todo);
-});
-
-router.put('/:id', checkRequiredBodyProperties(['title']), async (req, res) => {
-  const todo = await Todo.update(Number(req.params.id), req.body.title);
+router.put('/:id/markTodoUncompleted', async (req, res) => {
+  const todo = await Todo.update(Number(req.params.id), { completed: false });
 
   if (!todo) {
     sendNotFound(res);

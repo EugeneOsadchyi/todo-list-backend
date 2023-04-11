@@ -6,10 +6,12 @@ let idx = 0;
 export default class Todo {
   id: number;
   title: string;
+  completed: boolean = false;
 
-  constructor(id: number, title: string) {
+  constructor(id: number, title: string, completed: boolean = false) {
     this.id = id;
     this.title = title;
+    this.completed = completed;
   }
 
   public static async find(id: number): Promise<Todo | null> {
@@ -32,12 +34,12 @@ export default class Todo {
     return todo;
   }
 
-  public static async update(id: number, title: string): Promise<Todo | null> {
-    const todo = todos.find((todo) => todo.id === id);
+  public static async update(id: number, changes: object): Promise<Todo | null> {
+    let todo = todos.find((todo) => todo.id === id);
 
     if (todo) {
-      todo.title = title;
-      return new Todo(todo.id, todo.title);
+      todo = {...todo, ...changes};
+      return new Todo(todo.id, todo.title, todo.completed);
     }
 
     return null;
