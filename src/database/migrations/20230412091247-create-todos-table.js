@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Todos', {
+    await queryInterface.createTable('todos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,13 +13,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      description: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      state: {
+      completed: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +30,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: {
+            tableName: 'users'
+          },
           key: 'id'
         }
       }

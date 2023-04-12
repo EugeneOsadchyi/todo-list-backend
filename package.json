@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node --require dotenv/config src/index.ts",
     "test": "ts-node-test tests/",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "db:migrate": "NODE_ENV=development sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "@types/node": "^18.15.11",
     "@types/supertest": "^2.0.12",
     "dotenv": "^16.0.3",
+    "sequelize-cli": "^6.6.0",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
     "ts-node-test": "^0.4.1",

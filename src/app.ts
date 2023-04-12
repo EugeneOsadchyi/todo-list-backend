@@ -18,7 +18,7 @@ app.use(
 app.use('/auth', AuthRoutes);
 app.use('/todos', authMiddleware, TodoRoutes);
 
-app.use(sendNotFound);
+app.all('*', sendNotFound);
 app.use(errorHandlingMiddleware);
 
 export default app;
