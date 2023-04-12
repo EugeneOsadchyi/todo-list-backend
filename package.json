@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node --require dotenv/config src/index.ts",
-    "test": "ts-node-test tests/",
+    "test": "ts-node-test --test-reporter=spec tests/",
     "test:watch": "npm test -- --watch",
     "db:migrate": "NODE_ENV=development sequelize db:migrate"
   },

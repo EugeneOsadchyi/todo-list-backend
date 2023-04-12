@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
 import Request from '../types/Request';
 import User from '../models/user';
+import { sendUnauthorized } from '../controllers/helpers/responseHelpers';
 import { verifyJwt } from '../utils/jwt';
 
 interface DecodedToken {
@@ -11,7 +12,7 @@ export default async function authMiddleware(req: Request, res: Response, next: 
   const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(401).json({ error: 'Authorization header not found' });
+    return sendUnauthorized(req, res);
   }
 
   try {
@@ -19,7 +20,7 @@ export default async function authMiddleware(req: Request, res: Response, next: 
     const user = await User.findByPk(decoded.id);
 
     if (!user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return sendUnauthorized(req, res);
     }
 
     req.user = user;

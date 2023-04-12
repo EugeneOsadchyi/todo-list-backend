@@ -59,7 +59,7 @@
 
 ## Tests
 
-*Tests are currently in progress...*
+*Fix tests to run on the test database*
 
 To run tests run the next command
 ```sh
