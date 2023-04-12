@@ -69,3 +69,4 @@ npm test
 - [ ] *Fix tests to make them run on the test database*
 - [ ] Environment variables in tests
 - [ ] Add support of GraphQL
+- [ ] Make it running at https://todo.moneys-club.pp.ua
