@@ -59,9 +59,13 @@
 
 ## Tests
 
-*Fix tests to run on the test database*
-
 To run tests run the next command
 ```sh
 npm test
 ```
+
+
+## TODOs
+- [ ] *Fix tests to make them run on the test database*
+- [ ] Environment variables in tests
+- [ ] Add support of GraphQL
