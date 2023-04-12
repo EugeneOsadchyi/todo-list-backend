@@ -35,7 +35,11 @@
 
     Loaded configuration file "config/config.js".
     Using environment "development".
-    No migrations were executed, database schema was already up to date.
+    == 20230412091240-create-users-table: migrating =======
+    == 20230412091240-create-users-table: migrated (0.032s)
+
+    == 20230412091247-create-todos-table: migrating =======
+    == 20230412091247-create-todos-table: migrated (0.030s)
     ```
 5. Run the application
     ```sh
