@@ -1,35 +1,55 @@
-const users: User[] = [];
+import { DataTypes, Model } from 'sequelize';
+import bcrypt from 'bcrypt';
+import sequelize from './index';
 
-export default class User {
-  id?: number;
-  name: string;
-  email: string;
-  passwordHash: string;
-  [property: string]: any; // [property: string] is a type index signature
+const SALT_ROUNDS = 10;
 
-  constructor(name: string, email: string, passwordHash: string) {
-    this.name = name;
-    this.email = email;
-    this.passwordHash = passwordHash;
+class User extends Model {
+  id!: number;
+  name!: string;
+  email!: string;
+  password!: string;
+
+  matchesPassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
   }
 
-  public static async find(query: { [property: string]: string }): Promise<User | null> {
-    const user = users.find((user) => (
-      Object
-        .keys(query)
-        .every(
-          key => user.hasOwnProperty(key) && (user[key] === query[key])
-        )
-    ));
-
-    if (user) {
-      return new User(user.name, user.email, user.passwordHash);
-    }
-
-    return null;
-  }
-
-  public async save(): Promise<void> {
-    users.push(this);
+  static hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, SALT_ROUNDS);
   }
 }
+
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'User',
+    underscored: true,
+    freezeTableName: true,
+  }
+);
+
+export default User;
