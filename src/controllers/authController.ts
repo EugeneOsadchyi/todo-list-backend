@@ -11,7 +11,7 @@ export const login = async (req: Request, res: Response) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user || !(await user.matchesPassword(password))) {
-    return res.status(401).json({ message: 'Invalid email or password' });
+    return res.status(401).json({ error: 'Invalid email or password' });
   }
 
   return res.status(200).json({ token: jwt.sign({ id: user.id }, JWT_SECRET!) });
@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 
   const existingUser = await User.findOne({ where: { email } });
   if (existingUser) {
-    return res.status(400).json({ message: 'A user with this email already exists' });
+    return res.status(400).json({ error: 'A user with this email already exists' });
   }
 
   const hashedPassword = await User.hashPassword(password);

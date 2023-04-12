@@ -18,15 +18,8 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       userId: {
+        field: 'user_id',
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

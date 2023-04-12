@@ -13,15 +13,15 @@ export const createTodo = async (req: Request, res: Response) => {
 };
 
 export const getTodos = async (req: Request, res: Response) => {
-  const { state } = req.query;
+  const { filter } = req.query;
 
   const userId = req.user!.id;
 
   let filterQuery = {};
 
-  if (state === 'completed') {
+  if (filter === 'completed') {
     filterQuery = { completed: true };
-  } else if (state === 'incompleted') {
+  } else if (filter === 'incompleted') {
     filterQuery = { completed: false };
   }
 
@@ -51,7 +51,7 @@ export const updateTodo = (callback: (todo: Todo) => void) => {
     const todo = await Todo.findOne({ where: { id, userId } });
 
     if (!todo) {
-      return sendNotFound(res);
+      return sendNotFound(req, res);
     }
 
     if (todo) {

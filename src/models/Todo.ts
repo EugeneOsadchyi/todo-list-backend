@@ -21,20 +21,25 @@ Todo.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     completed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: 'id',
+      },
+    },
   },
   {
     sequelize,
     modelName: 'Todo',
-    timestamps: true,
+    tableName: 'todos',
+    timestamps: false,
     underscored: true,
     freezeTableName: true,
   }
