@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from './index';
-import User from './user.js';
+import User from './user';
 
 class Todo extends Model {
   id!: number;
