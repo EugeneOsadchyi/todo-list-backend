@@ -1,9 +1,7 @@
 import { Response, NextFunction } from 'express';
 import Request from '../types/Request';
-import jwt from 'jsonwebtoken';
 import User from '../models/user';
-
-const secret = process.env.JWT_SECRET;
+import { verifyJwt } from '../utils/jwt';
 
 interface DecodedToken {
   id: string;
@@ -17,7 +15,7 @@ export default async function authMiddleware(req: Request, res: Response, next: 
   }
 
   try {
-    const decoded = jwt.verify(token, secret!) as DecodedToken;
+    const decoded = verifyJwt(token) as DecodedToken;
     const user = await User.findByPk(decoded.id);
 
     if (!user) {

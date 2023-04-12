@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import User from '../models/user';
-
-const JWT_SECRET = process.env.JWT_SECRET;
+import { signJwt } from '../utils/jwt';
 
 
 export const login = async (req: Request, res: Response) => {
@@ -14,7 +12,7 @@ export const login = async (req: Request, res: Response) => {
     return res.status(401).json({ error: 'Invalid email or password' });
   }
 
-  return res.status(200).json({ token: jwt.sign({ id: user.id }, JWT_SECRET!) });
+  return res.status(200).json({ token: signJwt({ id: user.id }) });
 }
 
 export const register = async (req: Request, res: Response) => {
