@@ -9,14 +9,15 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "https://todo.moneys-club.pp.ua",
       RegExp('127.0.0.1(:\d+)?|localhost(:\d+)?'),
     ]
   }),
   express.json(),
 );
 
-app.use('/auth', AuthRoutes);
-app.use('/todos', authMiddleware, TodoRoutes);
+app.use('/api/auth', AuthRoutes);
+app.use('/api/todos', authMiddleware, TodoRoutes);
 
 app.all('*', sendNotFound);
 app.use(errorHandlingMiddleware);

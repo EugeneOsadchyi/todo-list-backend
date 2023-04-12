@@ -25,7 +25,7 @@ export const getTodos = async (req: Request, res: Response) => {
     filterQuery = { completed: false };
   }
 
-  const todos = await Todo.findAll({ where: { ...filterQuery, userId  } });
+  const todos = await Todo.findAll({ where: { ...filterQuery, userId  }, order: ['id'] });
 
   res.json(Todo.toJSON(todos));
 };
