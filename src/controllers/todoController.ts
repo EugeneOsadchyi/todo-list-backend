@@ -9,7 +9,7 @@ export const createTodo = async (req: Request, res: Response) => {
 
   const todo = await Todo.create({ title, completed, userId });
 
-  res.status(201).json(todo);
+  res.status(201).json(todo.toJSON());
 };
 
 export const getTodos = async (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ export const getTodos = async (req: Request, res: Response) => {
 
   const todos = await Todo.findAll({ where: { ...filterQuery, userId  } });
 
-  res.json(todos);
+  res.json(Todo.toJSON(todos));
 };
 
 export const deleteTodo = async (req: Request, res: Response) => {
@@ -59,6 +59,6 @@ export const updateTodo = (callback: (todo: Todo) => void) => {
       await todo.save();
     }
 
-    return res.status(200).json(todo);
+    return res.status(200).json(todo.toJSON());
   }
 }

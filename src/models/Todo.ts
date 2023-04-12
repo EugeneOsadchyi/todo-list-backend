@@ -7,6 +7,15 @@ class Todo extends Model {
   title!: string;
   completed!: boolean;
   userId!: number;
+
+  public toJSON(): object {
+    const { id, title, completed } = this;
+    return { id, title, completed };
+  }
+
+  static toJSON(todos: Todo[]): object[] {
+    return todos.map((todo) => todo.toJSON());
+  }
 }
 
 Todo.init(
