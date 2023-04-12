@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { authMiddleware, errorHandlingMiddleware } from './middlewares';
-import { AuthRoutes, TodoRoutes } from './routes';
+import { errorHandlingMiddleware } from './middlewares';
 import { sendNotFound } from './controllers/helpers/responseHelpers';
+import indexRouter from './routes';
 
 const app = express();
 
@@ -16,8 +16,7 @@ app.use(
   express.json(),
 );
 
-app.use('/api/auth', AuthRoutes);
-app.use('/api/todos', authMiddleware, TodoRoutes);
+app.use('/api', indexRouter);
 
 app.all('*', sendNotFound);
 app.use(errorHandlingMiddleware);
