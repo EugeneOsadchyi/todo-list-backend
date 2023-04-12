@@ -1,8 +1,8 @@
 # Todo List Application (backend)
 
 ## Application consists of
-- Backend NodeJS application (this repository)
-- Frontend React application
+- [Backend NodeJS application (this repository)](https://github.com/EugeneOsadchyi/todo-list-backend)
+- [Frontend React application](https://github.com/EugeneOsadchyi/todo-list-ui)
 
 ## Pre-requirements
 - Postgres
