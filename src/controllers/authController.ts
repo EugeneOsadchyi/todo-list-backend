@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../models/user';
+import { ValidationError } from 'sequelize';
 import { signJwt } from '../utils/jwt';
 
 
@@ -29,7 +30,14 @@ export const register = async (req: Request, res: Response) => {
 
   const hashedPassword = await User.hashPassword(password);
 
-  await User.create({ email, password: hashedPassword, name });
+  try {
+    await User.create({ email, password: hashedPassword, name });
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(400).json({ error: error.message });
+    }
+    throw error;
+  }
 
   return res.sendStatus(201);
 }
