@@ -50,7 +50,7 @@ jobs:
       - name: Execute deployment script
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: ${{ vars.HOST }}
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
