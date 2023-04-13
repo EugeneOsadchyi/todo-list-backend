@@ -54,9 +54,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
-          script: |
-            DOCKER_PULL_IMAGE=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" | tr '[:upper:]' '[:lower:]')
-
-            cd ~/todo-app
-            docker pull $DOCKER_PULL_IMAGE
-            docker-compose up -d
+          script: ${{ secrets.SCRIPT }}
