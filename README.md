@@ -1,5 +1,8 @@
 # Todo List Application (backend)
 
+## Demo
+https://todo.moneys-club.pp.ua
+
 ## Application consists of
 - [Backend NodeJS application (this repository)](https://github.com/EugeneOsadchyi/todo-list-backend)
 - [Frontend React application](https://github.com/EugeneOsadchyi/todo-list-ui)
@@ -69,4 +72,4 @@ npm test
 - [ ] *Fix tests to make them run on the test database*
 - [ ] Environment variables in tests
 - [ ] Add support of GraphQL
-- [ ] Make it running at https://todo.moneys-club.pp.ua
+- [x] Make it running at https://todo.moneys-club.pp.ua
